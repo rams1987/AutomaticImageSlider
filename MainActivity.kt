@@ -1,9 +1,11 @@
 package com.rams.automaticimageslider
 
+import android.media.MediaPlayer
 import android.os.Handler
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.viewpagerindicator.CirclePageIndicator
 import java.util.ArrayList
 import java.util.Timer
@@ -16,11 +18,15 @@ class MainActivity : AppCompatActivity() {
     private var imageModelArrayList: ArrayList<ImageModel>? = null
     private val myImageList = intArrayOf(R.drawable.bear, R.drawable.deer, R.drawable.fox, R.drawable.lion, R.drawable.panther, R.drawable.tiger)
 
+    private var mediaPlayer: MediaPlayer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         imageModelArrayList = ArrayList()
         imageModelArrayList = populateList()
+
+        Toast.makeText(this, "Click on ", Toast.LENGTH_SHORT).show()
 
         init()
     }
@@ -61,6 +67,8 @@ class MainActivity : AppCompatActivity() {
                 currentPage = 0
             }
             mPager!!.setCurrentItem(currentPage++, true)
+            mediaPlayer = MediaPlayer.create(this, R.raw.lion)
+            mediaPlayer!!.start()
         }
         val swipeTimer = Timer()
         swipeTimer.schedule(object : TimerTask() {
