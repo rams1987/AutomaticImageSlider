@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private var imageModelArrayList: ArrayList<ImageModel>? = null
     private val myImageList = intArrayOf(R.drawable.bear, R.drawable.deer, R.drawable.fox, R.drawable.lion, R.drawable.panther, R.drawable.tiger)
+    private val mySoundList = intArrayOf(R.raw.bear, R.raw.deer, R.raw.fox, R.raw.lion, R.raw.panther, R.raw.tiger)
 
     private var mediaPlayer: MediaPlayer? = null
 
@@ -66,9 +67,13 @@ class MainActivity : AppCompatActivity() {
             if (currentPage == NUM_PAGES) {
                 currentPage = 0
             }
-            mPager!!.setCurrentItem(currentPage++, true)
-            mediaPlayer = MediaPlayer.create(this, R.raw.lion)
+
+            mPager!!.setCurrentItem(currentPage, true)
+            Toast.makeText(this, "current page "+currentPage, Toast.LENGTH_SHORT).show()
+            mediaPlayer = MediaPlayer.create(this, mySoundList[currentPage])
             mediaPlayer!!.start()
+            currentPage = currentPage+1
+            //mediaPlayer!!.stop()
         }
         val swipeTimer = Timer()
         swipeTimer.schedule(object : TimerTask() {
